@@ -13,8 +13,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2020,
+    project: path.join(__dirname, 'tsconfig.eslint.json'),
     sourceType: 'module',
-    project: './tsconfig.eslint.json',
   },
   rules: {
     'no-unused-vars': 'off',
