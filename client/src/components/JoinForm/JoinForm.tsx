@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
-import { IDataRoom } from '../../App';
+import { IJoinFormProps } from '../../types';
 
 const JoinForm: React.FC<IJoinFormProps> = ({ onLogin }) => {
-  const [roomID, setRoomID] = useState('');
-  const [userName, setUserName] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const [roomID, setRoomID] = React.useState('');
+  const [userName, setUserName] = React.useState('');
+  const [isLoading, setLoading] = React.useState(false);
 
   const handlerUserNameValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -22,12 +22,12 @@ const JoinForm: React.FC<IJoinFormProps> = ({ onLogin }) => {
     e.preventDefault();
     if (!roomID || !userName) alert('Вы ввели неверные данные!');
     setLoading(true);
-    const obj: IDataRoom = {
+    const baseData = {
       roomID,
       userName,
     };
-    await axios.post('http://localhost:5002/rooms', obj);
-    onLogin(obj);
+    await axios.post('http://localhost:5002/rooms', baseData);
+    onLogin(baseData);
   };
 
   return (
@@ -57,7 +57,3 @@ const JoinForm: React.FC<IJoinFormProps> = ({ onLogin }) => {
 };
 
 export default JoinForm;
-
-interface IJoinFormProps {
-  onLogin: (obj: IDataRoom) => void;
-}
